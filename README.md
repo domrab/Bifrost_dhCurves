@@ -1,6 +1,6 @@
 # Bifrost_dhCurves
 
-Collection of of bifrost compounds to work with curves inside of Bifrost. bSplines should match Maya NURBS curves for the most part.\
+Collection of Bifrost compounds to work with curves inside of Bifrost. bSplines should match Maya NURBS curves for the most part.\
 To install, follow the instructions [here](https://help.autodesk.com/view/BIFROST/ENU/?guid=Bifrost_Common_install_compounds_and_graphs_html).
 
 ![bSpline_nodes](https://github.com/domrab/Bifrost_dhCurves/assets/58582379/66c73fe1-0ea7-46be-91ad-c5317272ee11)
