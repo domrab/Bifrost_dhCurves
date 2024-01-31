@@ -8,7 +8,7 @@ To install, follow the instructions [here](https://help.autodesk.com/view/BIFROS
 ---
 
 # construct_bSpline
-Construct a bSpline object from its control points, the degree, and optionally a knot vector.
+Construct a bSpline object from it's control points, the degree, and optionally a knot vector.
 
 ### Inputs
 
@@ -49,13 +49,13 @@ The number of cvs for which this knot vector will be used.
 The degree of the bSpline (determines the multiplicity).
 
 <b>`remap_range [in]`</b>\
-The default range is 0 to spans. If custom range is true, the `min` and `max` input values get used.
+The default range is 0 to spans. If `remap_range` is true, the `min` and `max` input values get used.
 
 <b>`min [in]`</b>\
-Default start value for generated knot vector if its not supplied.
+Default start value for generated knot vector if it's not supplied.
 
 <b>`max [in]`</b>\
-Default end value for generated knot vector if its not supplied.
+Default end value for generated knot vector if it's not supplied.
 
 ### Outputs
 
@@ -215,7 +215,7 @@ The strands created from the bSpline for visualization purposes.
 ---
 
 # deconstruct_bSpline
-Deconstruct a bSpline into its components.
+Deconstruct a bSpline into it's components.
 
 ### Inputs
 
@@ -299,7 +299,7 @@ The maximum value in the knot vector.
 ---
 
 # deBoor (internal)
-Simple deBoor implementation to sample a bSpline. While slower than the matrix representation of bSplines, I found this to produce an output matching maya nurbs curves.
+Simple deBoor implementation to sample a bSpline. While slower than the matrix representation of bSplines, I found this to produce an output matching Maya NURBS curves.
 
 ### Inputs
 
@@ -326,7 +326,7 @@ The calculated output position.
 ---
 
 # find_span (internal)
-Find the span for the deBoor algorith from a given parameter and the knot vector.
+Find the span for the deBoor algorithm from a given parameter and the knot vector.
 
 ### Inputs
 
@@ -334,6 +334,7 @@ Find the span for the deBoor algorith from a given parameter and the knot vector
 The parameter to find the span for.
 
 <b>`knots [in]`</b>\
+The knot vector of the bSpline.
 
 ### Outputs
 
@@ -364,7 +365,7 @@ The sampled position.
 ---
 
 # sample_bSpline_per_span
-Sample a bSpline several times at each span at equally spaced parameter intervalls.
+Sample a bSpline several times at each span at equally spaced parameter intervals.
 
 ### Inputs
 
