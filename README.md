@@ -4,6 +4,8 @@ Collection of Bifrost compounds to work with curves inside of Bifrost. bSplines 
 To install, follow the instructions [here](https://help.autodesk.com/view/BIFROST/ENU/?guid=Bifrost_Common_install_compounds_and_graphs_html).
 
 ![bSpline_nodes](https://github.com/domrab/Bifrost_dhCurves/assets/58582379/66c73fe1-0ea7-46be-91ad-c5317272ee11)
+Update 1:
+![bSpline_nodes2](https://github.com/domrab/Bifrost_dhCurves/assets/58582379/3968e2f6-8989-4ddc-bfa7-3fc1226f4b2a)
 
 ---
 
@@ -87,6 +89,8 @@ The parameter array.
 
 # bSpline_scope
 An easy visualization compound for bSplines.
+> [!NOTE]  
+> It appears for a zero-degree bSpline the visualization is off. As far as I understand, a p=0 bSpline is stepped. Given the visualization through one strand connecting all the CVs, the stepping will be invisible as the actual bSpline parameters are all lying on the points themselves. Thus a zero-degree bSpline visualized will look like a first-degree bSpline.
 
 ### Inputs
 
@@ -383,3 +387,131 @@ The sampled positions.
 <b>`parameters [out]`</b>\
 The parameters at which the positions got sampled.
 
+---
+
+# reparameterize_bSpline
+Reparameterize a given bSpline.
+
+### Inputs
+
+<b>`bSpline [in]`</b>\
+The bSpline to resample.
+
+<b>`samples [in]`</b>\
+The number of samples per span. This uses `sample_bSpline_per_span` under the hood.
+
+<b>`degree [in]`</b>\
+The desired output degree. As a higher order bSpline tends to shift 'inwards' of the CVs and the CVs get sampled on the existing bSpline, a higher number of `samples` is required to maintain the shape as best as possible.
+
+<b>`remap_range [in]`</b>\
+If false, the range of the input bSpline is used. If `remap_range` is true, the `min` and `max` input values get used.
+
+<b>`min [in]`</b>\
+Start value for new bSpline.
+
+<b>`max [in]`</b>\
+End value for new bSpline.
+
+### Outputs
+
+<b>`new_bSpline [out]`</b>\
+The reparameterized bSpline.
+
+---
+
+# compute_bSpline_derivative
+Compute the n-th derivative of a given bSpline.
+
+### Inputs
+
+<b>`bSpline [in]`</b>\
+The bSpline to compute the derivative of. Must be at least first-degree.
+
+<b>`order [in]`</b>\
+The n-th order derivative. This value internally gets clamped between 1 and `bSpline.degree`.
+
+### Outputs
+
+<b>`derivative_bSpline [out]`</b>\
+The derivative bSpline.
+
+<b>`derivative_cvs [out]`</b>\
+The derivative control points.
+
+<b>`derivative_degree [out]`</b>\
+The derivative degree.
+
+<b>`derivative_knots [out]`</b>\
+The derivative knots.
+
+---
+
+# measure_linear_curve
+Utility to measure the distances along a linear curve (array of 3D points).
+
+### Inputs
+
+<b>`control_points [in]`</b>\
+The control points.
+
+### Outputs
+
+<b>`lengths [out]`</b>\
+An array containing the length of each segment.
+
+<b>`cumulative [out]`</b>\
+An array containing the cumulative length for each segment.
+
+<b>`total [out]`</b>\
+The total length of the curve (equivalent to the last value in cumulative).
+
+---
+
+# bSpline_parameter_scope
+For easy visualization of parameters on a bSpline.
+
+### Inputs
+
+<b>`bSpline [in]`</b>\
+The bSpline to sample the parameters on.
+
+<b>`parameters [in]`</b>\
+The parameters to sample.
+
+<b>`color [in]`</b>\
+The visualization color.
+
+<b>`shape [in]`</b>\
+This corresponds to the shape on the point shape. Do not use `numeric` as I did not provide a way to specify the property name.
+
+<b>`size [in]`</b>\
+The size of the shape. Not applicable when `shape` is `point`.
+
+<b>`screen_aligned [in]`</b>\
+If the shape is screen aligned. Not applicable when `shape` is `point`.
+
+### Outputs
+
+<b>`points [out]`</b>\
+The points created for visualization purposes.
+
+---
+
+# matrix_from_bSplines
+Given a main and up bSpline curves and a parameter, this calculates a no-scale, no-shear matrix. Currently limited to +X pointing towards the increasing parameter value and +Y to the sampled location on the up curve.
+
+### Inputs
+
+<b>`bSpline_main [in]`</b>\
+The main curve.
+
+<b>`bSpline_up [in]`</b>\
+The up curve. The CVs and the degree of this node get used together with the min/max knot values from `bSpline_main` to construct a curve that has the same valid sample space.
+
+<b>`parameters [in]`</b>\
+The parameter at which both bSplines get sampled.
+
+### Outputs
+
+<b>`matrix [out]`</b>\
+The output matrix.
